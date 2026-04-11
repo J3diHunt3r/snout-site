@@ -43,13 +43,13 @@ const PricingCard = ({ title, price, features, isPopular, isBusiness, delay }) =
 
 const Pricing = () => {
     return (
-        <section className="py-24 bg-[var(--color-bg-soft)]">
+        <section id="pricing" className="py-24 bg-[var(--color-bg-soft)] scroll-mt-24">
             <div className="container">
                 <div className="text-center max-w-2xl mx-auto mb-16">
                     <span className="text-[var(--color-primary)] font-bold tracking-wide uppercase text-sm">Pricing</span>
                     <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4">Plans for Every Paw</h2>
                     <p className="text-[var(--color-text-light)] text-lg">
-                        Whether you're a pet parent or a business, we have a plan for you.
+                        Whether you're a pet parent or a business, we have a plan for you. Prices in GBP.
                     </p>
                 </div>
 
@@ -67,7 +67,7 @@ const Pricing = () => {
                     />
                     <PricingCard
                         title="Pro"
-                        price="$9.99"
+                        price="£4.99"
                         isPopular
                         features={[
                             "Unlimited AI Consultations",
@@ -80,7 +80,7 @@ const Pricing = () => {
                     />
                     <PricingCard
                         title="Business"
-                        price="$49.99"
+                        price="£19.99"
                         isBusiness
                         features={[
                             "Business Profile & Verification",

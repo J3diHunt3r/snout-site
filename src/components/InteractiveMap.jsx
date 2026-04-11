@@ -1,113 +1,150 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Info, Navigation } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { MapPin, Navigation, Stethoscope, Trees, Coffee, Route } from 'lucide-react';
 
-const locations = [
-    { id: 1, type: 'vet', x: 20, y: 30, name: "City Paws Vet", status: "Open Now", rating: 4.9 },
-    { id: 2, type: 'park', x: 50, y: 50, name: "Golden Bone Park", status: "Busy", rating: 4.8 },
-    { id: 3, type: 'store', x: 70, y: 20, name: "Whiskers & Co", status: "Closing Soon", rating: 4.5 },
-    { id: 4, type: 'vet', x: 60, y: 70, name: "Emergency Vet 24/7", status: "Open 24/7", rating: 5.0 },
-    { id: 5, type: 'park', x: 30, y: 80, name: "Riverside Walk", status: "Quiet", rating: 4.7 },
+const highlights = [
+    {
+        icon: Stethoscope,
+        title: 'Vets & emergency care',
+        description: 'Filter by hours, species, and distance when minutes matter.',
+    },
+    {
+        icon: Trees,
+        title: 'Parks & walks',
+        description: 'See green spaces and crowd hints so you pick the right spot.',
+    },
+    {
+        icon: Coffee,
+        title: 'Pet-friendly venues',
+        description: 'Cafés, shops, and services that welcome paws.',
+    },
+    {
+        icon: Route,
+        title: 'Smarter routes',
+        description: 'Plan walks that suit your pet’s energy and your schedule.',
+    },
+];
+
+const previewPlaces = [
+    { icon: Stethoscope, label: 'City Paws Vet', meta: 'Open now · 0.8 mi', accent: 'bg-rose-500/15 text-rose-700 dark:text-rose-300' },
+    { icon: Trees, label: 'Riverside Park', meta: 'Usually quiet · 1.2 mi', accent: 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-300' },
+    { icon: Coffee, label: 'The Wag Café', meta: 'Pet menu · 0.4 mi', accent: 'bg-amber-500/15 text-amber-800 dark:text-amber-200' },
 ];
 
 const InteractiveMap = () => {
-    const [activeId, setActiveId] = useState(null);
-
     return (
-        <section className="py-24 bg-[var(--color-bg)] transition-colors duration-300">
-            <div className="container">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
-                    <div className="relative aspect-square md:aspect-[4/3] bg-gray-100 rounded-3xl overflow-hidden shadow-2xl group cursor-crosshair">
-                        {/* Map Background (Abstract) */}
-                        <div className="absolute inset-0 bg-[#e5e7eb] dark:bg-slate-800 transition-colors duration-300">
-                            {/* Roads */}
-                            <svg className="w-full h-full opacity-30 dark:opacity-10" width="100%" height="100%">
-                                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" />
-                                </pattern>
-                                <rect width="100%" height="100%" fill="url(#grid)" />
-                                <path d="M 0 100 Q 250 50 500 100 T 1000 100" fill="none" stroke="currentColor" strokeWidth="8" className="text-white dark:text-gray-700" />
-                                <path d="M 300 0 L 300 400" fill="none" stroke="currentColor" strokeWidth="8" className="text-white dark:text-gray-700" />
-                            </svg>
-                        </div>
+        <section className="relative py-24 md:py-28 overflow-hidden bg-[var(--color-bg)] border-t border-emerald-100/60 dark:border-slate-800">
+            <div className="pointer-events-none absolute right-0 top-1/2 h-[420px] w-[420px] -translate-y-1/2 rounded-full bg-[var(--color-primary-light)]/8 blur-3xl" />
+            <div className="pointer-events-none absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-amber-200/15 dark:bg-emerald-900/20 blur-3xl" />
 
-                        {/* Pins */}
-                        {locations.map((loc) => (
-                            <motion.div
-                                key={loc.id}
-                                className="absolute -translate-x-1/2 -translate-y-1/2"
-                                style={{ top: `${loc.y}%`, left: `${loc.x}%` }}
-                            >
-                                <motion.button
-                                    whileHover={{ scale: 1.2 }}
-                                    onClick={() => setActiveId(loc.id === activeId ? null : loc.id)}
-                                    className={`relative w-10 h-10 rounded-full flex items-center justify-center shadow-lg z-10 
-                      ${loc.type === 'vet' ? 'bg-red-500 text-white' :
-                                            loc.type === 'park' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'}`}
+            <div className="container relative z-10">
+                <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
+                    <div className="max-w-xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.45 }}
+                            className="inline-flex items-center gap-2 rounded-full border border-emerald-200/80 bg-white/90 px-4 py-1.5 text-sm font-semibold text-[var(--color-primary)] shadow-sm dark:border-emerald-800/60 dark:bg-emerald-950/40 dark:text-emerald-400"
+                        >
+                            <Navigation className="h-4 w-4" aria-hidden />
+                            Discovery map
+                        </motion.div>
+
+                        <motion.h2
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.05 }}
+                            className="mt-5 font-display text-4xl font-bold tracking-tight text-slate-900 dark:text-white md:text-5xl"
+                        >
+                            Explore a pet-friendly world
+                        </motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.45, delay: 0.1 }}
+                            className="mt-4 text-lg leading-relaxed text-[var(--color-text-light)]"
+                        >
+                            Find vets, parks, and welcoming spots near you—curated for pets and the people who love them. Snout
+                            keeps context in one place so you spend less time searching and more time together.
+                        </motion.p>
+
+                        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+                            {highlights.map(({ icon: Icon, title, description }, i) => (
+                                <motion.div
+                                    key={title}
+                                    initial={{ opacity: 0, y: 14 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: 0.08 + i * 0.05 }}
+                                    className="rounded-2xl border border-emerald-100/90 bg-white/90 p-5 shadow-[var(--shadow-sm)] dark:border-slate-700 dark:bg-slate-800/80"
                                 >
-                                    <MapPin size={20} />
-                                    {activeId === loc.id && (
-                                        <span className="absolute inset-0 rounded-full animate-ping bg-inherit opacity-75"></span>
-                                    )}
-                                </motion.button>
-
-                                {/* Tooltip */}
-                                <AnimatePresence>
-                                    {activeId === loc.id && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                                            className="absolute bottom-12 left-1/2 -translate-x-1/2 bg-white dark:bg-slate-900 dark:text-white p-4 rounded-xl shadow-xl w-48 z-20 pointer-events-none"
-                                        >
-                                            <h4 className="font-bold text-gray-900 dark:text-white mb-1">{loc.name}</h4>
-                                            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-2">
-                                                <span>{loc.status}</span>
-                                                <span className="flex items-center gap-1 text-yellow-500">★ {loc.rating}</span>
-                                            </div>
-                                            <div className="flex items-center gap-2 text-[var(--color-primary)] text-xs font-bold">
-                                                <Navigation size={12} /> 0.8 miles away
-                                            </div>
-                                            {/* Arrow */}
-                                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white dark:bg-slate-900 rotate-45"></div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </motion.div>
-                        ))}
-
-                        {/* User Location */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-blue-500 border-2 border-white rounded-full shadow-md z-0">
-                            <div className="absolute inset-0 bg-blue-500 rounded-full animate-ping opacity-20"></div>
+                                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-primary)]/10 text-[var(--color-primary)] dark:bg-emerald-500/15 dark:text-emerald-400">
+                                        <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />
+                                    </span>
+                                    <h3 className="mt-3 font-semibold text-slate-900 dark:text-white">{title}</h3>
+                                    <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-text-light)]">{description}</p>
+                                </motion.div>
+                            ))}
                         </div>
                     </div>
 
+                    {/* Visual: layered “map” cards — brand-aligned, no fake grid UI */}
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        className="space-y-6"
+                        transition={{ duration: 0.55 }}
+                        className="relative mx-auto w-full max-w-lg lg:max-w-none lg:justify-self-end"
                     >
-                        <div className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-600 dark:text-blue-400 px-4 py-1 rounded-full text-sm font-bold">
-                            <Navigation size={16} /> Live GPS Tracking
+                        <div className="relative rounded-[2rem] border border-emerald-200/50 bg-gradient-to-br from-emerald-50/90 via-white to-amber-50/50 p-6 shadow-[var(--shadow-lg)] dark:border-slate-700 dark:from-slate-800 dark:via-slate-900 dark:to-emerald-950/40 md:p-8">
+                            <div className="absolute inset-0 rounded-[2rem] bg-[radial-gradient(ellipse_at_30%_20%,rgba(34,197,94,0.12),transparent_50%)] dark:bg-[radial-gradient(ellipse_at_30%_20%,rgba(34,197,94,0.08),transparent_50%)]" />
+
+                            <div className="relative flex items-center justify-between gap-3 border-b border-emerald-100/80 pb-4 dark:border-slate-700">
+                                <div className="flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-100">
+                                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--color-primary)] text-white shadow-sm">
+                                        <MapPin className="h-4 w-4" aria-hidden />
+                                    </span>
+                                    Near you
+                                </div>
+                                <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-emerald-800 shadow-sm dark:bg-slate-800 dark:text-emerald-300">
+                                    Live
+                                </span>
+                            </div>
+
+                            <ul className="relative mt-5 space-y-3">
+                                {previewPlaces.map((place, i) => {
+                                    const PlaceIcon = place.icon;
+                                    return (
+                                    <motion.li
+                                        key={place.label}
+                                        initial={{ opacity: 0, x: 12 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.35, delay: 0.1 + i * 0.08 }}
+                                        className="flex items-center gap-4 rounded-2xl border border-white/80 bg-white/90 p-4 shadow-sm backdrop-blur-sm dark:border-slate-600/80 dark:bg-slate-800/90"
+                                    >
+                                        <span
+                                            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${place.accent}`}
+                                        >
+                                            <PlaceIcon className="h-6 w-6" strokeWidth={2} aria-hidden />
+                                        </span>
+                                        <div className="min-w-0 flex-1">
+                                            <p className="font-semibold text-slate-900 dark:text-white">{place.label}</p>
+                                            <p className="text-sm text-[var(--color-text-light)]">{place.meta}</p>
+                                        </div>
+                                        <Navigation className="h-4 w-4 shrink-0 text-emerald-600 opacity-70 dark:text-emerald-400" aria-hidden />
+                                    </motion.li>
+                                    );
+                                })}
+                            </ul>
+
+                            <p className="relative mt-5 text-center text-xs font-medium text-[var(--color-text-light)]">
+                                Illustrative previews · real listings in the Snout Scout app
+                            </p>
                         </div>
-                        <h2 className="text-4xl md:text-5xl font-bold dark:text-white">Explore a Pet-Friendly World</h2>
-                        <p className="text-[var(--color-text-light)] text-lg leading-relaxed">
-                            Need a Vet at 2 AM? Looking for a park that's not crowded? Snout's interactive map shows you everything nearby in real-time.
-                        </p>
-                        <ul className="space-y-4">
-                            {[
-                                "Real-time Crowd Levels for Parks",
-                                "Emergency Vet Filtering",
-                                "Pet-Friendly Cafes & Stores",
-                                "Safe Walking Route Suggestions"
-                            ].map((item, i) => (
-                                <li key={i} className="flex items-center gap-3 text-lg dark:text-gray-300">
-                                    <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-400">✓</div>
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
                     </motion.div>
                 </div>
             </div>

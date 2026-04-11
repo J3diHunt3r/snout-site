@@ -10,6 +10,7 @@ import Contact from '../components/Contact';
 import FAQ from '../components/FAQ';
 import StickyCTA from '../components/StickyCTA';
 import ParallaxBackground from '../components/ParallaxBackground';
+import SiteFooter from '../components/SiteFooter';
 
 const HomePage = () => {
     return (
@@ -27,9 +28,7 @@ const HomePage = () => {
             <Contact />
             <StickyCTA />
 
-            <footer className="py-8 text-center text-gray-500 text-sm bg-[var(--color-bg-soft)] dark:border-t dark:border-slate-800 transition-colors duration-300">
-                &copy; {new Date().getFullYear()} Snout Inc. All rights reserved.
-            </footer>
+            <SiteFooter />
         </div>
     );
 };

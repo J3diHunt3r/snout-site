@@ -13,7 +13,7 @@ const Contact = () => {
     };
 
     return (
-        <section className="py-24 bg-[var(--color-bg-soft)]">
+        <section id="contact" className="py-24 bg-[var(--color-bg-soft)] scroll-mt-24">
             <div className="container">
                 <div className="grid md:grid-cols-2 gap-16">
                     <motion.div

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const Founders = () => {
     return (
-        <section className="py-24 bg-[var(--color-bg)]">
+        <section id="about" className="py-24 bg-[var(--color-bg)] scroll-mt-24">
             <div className="container">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <motion.div

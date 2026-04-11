@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Public marketing stats (read-only from the website). Merge this into your real rules file.
+    match /stats/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // TODO: your existing rules for users, pets, etc.
+  }
+}
