@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Button from './ui/Button';
 import { Menu, X } from 'lucide-react';
 import logo from '../assets/images/logo.png';
 import useAuth from '../hooks/useAuth';
@@ -70,12 +69,6 @@ const Navbar = () => {
                             {item.label}
                         </Link>
                     ))}
-                </div>
-
-                <div className="hidden md:flex items-center gap-4">
-                    <Button variant="primary" className="py-2 px-5 text-sm">
-                        Download
-                    </Button>
                 </div>
 
                 <button
