@@ -95,13 +95,13 @@ const Hero = () => {
                     <motion.div
                         animate={{ y: [0, -20, 0] }}
                         transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 1 }}
-                        className="absolute top-16 sm:top-20 -right-2 sm:-right-10 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl z-20 max-w-[150px] border border-gray-100 dark:border-gray-700"
+                        className="absolute top-16 sm:top-20 -right-2 sm:-right-10 bg-white p-4 rounded-xl shadow-xl z-20 max-w-[150px] border border-gray-100"
                     >
                         <div className="flex items-center gap-2 mb-1">
                             <div className="w-2 h-2 rounded-full bg-green-500 animate-ping" />
-                            <span className="text-xs font-bold dark:text-white">Lost & Found</span>
+                            <span className="text-xs font-bold">Lost & Found</span>
                         </div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">&quot;Found within 2 miles!&quot;</p>
+                        <p className="text-xs text-gray-500">&quot;Found within 2 miles!&quot;</p>
                     </motion.div>
                 </motion.div>
             </div >

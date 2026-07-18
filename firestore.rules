@@ -1,0 +1,149 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    // UI-only convenience check also lives in src/lib/admin.js — keep both lists in sync.
+    function isAdmin() {
+      return signedIn() && request.auth.token.email in ['charicombe12@gmail.com'];
+    }
+
+    function petOwnerUid(petId) {
+      return get(/databases/$(database)/documents/my_pets/$(petId)).data.owner_id;
+    }
+
+    // Community stats shown on the marketing website — public, read-only.
+    match /stats/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Contact-form leads captured by the website — admin-only, written server-side
+    // by the sendContactEmail Cloud Function (Admin SDK bypasses these rules).
+    match /Leads/{leadId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // Users: a user manages their own doc. Signed-in peers can read minimal
+    // public fields (display name, avatar) for messaging / QR scan flows.
+    match /Users/{userId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isOwner(userId);
+    }
+
+    // Pets: signed-in read so QR scans of strangers' pets still work.
+    // Only the owning uid may create/update/delete, and owner_id is immutable.
+    match /my_pets/{petId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+                    && request.resource.data.owner_id == request.auth.uid;
+      allow update: if signedIn()
+                    && resource.data.owner_id == request.auth.uid
+                    && request.resource.data.owner_id == resource.data.owner_id;
+      allow delete: if signedIn()
+                    && resource.data.owner_id == request.auth.uid;
+
+      match /health_logs/{logId} {
+        allow read, write: if signedIn()
+                           && petOwnerUid(petId) == request.auth.uid;
+      }
+    }
+
+    // Bookings: only the customer or the business on the doc can see/modify.
+    match /bookings/{bookingId} {
+      allow read: if signedIn()
+                  && (resource.data.customerId == request.auth.uid
+                      || resource.data.businessId == request.auth.uid);
+      allow create: if signedIn()
+                    && request.resource.data.customerId == request.auth.uid;
+      allow update: if signedIn()
+                    && (resource.data.customerId == request.auth.uid
+                        || resource.data.businessId == request.auth.uid);
+      allow delete: if false;
+    }
+
+    // Business services: any signed-in user can browse; only the owning
+    // business can author or remove them.
+    match /business_services/{serviceId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+                    && request.resource.data.businessId == request.auth.uid;
+      allow update, delete: if signedIn()
+                            && resource.data.businessId == request.auth.uid;
+    }
+
+    // Reviews: customers create/edit their own; everyone signed-in can read.
+    match /business_reviews/{reviewId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+                    && request.resource.data.customerId == request.auth.uid;
+      allow update: if signedIn()
+                    && resource.data.customerId == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // Invoices: read-only for the two parties; only the issuing business
+    // may create. Mutations and deletes locked off until a function owns them.
+    match /invoices/{invoiceId} {
+      allow read: if signedIn()
+                  && (resource.data.customerId == request.auth.uid
+                      || resource.data.businessId == request.auth.uid);
+      allow create: if signedIn()
+                    && request.resource.data.businessId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // Lost-pet broadcast alerts.
+    match /lost_pet_alerts/{alertId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+                    && request.resource.data.senderID == request.auth.uid;
+      allow update, delete: if signedIn()
+                            && resource.data.senderID == request.auth.uid;
+    }
+
+    // Lost-pet chat rooms + messages.
+    match /lost_pet_message_room/{roomId} {
+      allow read, write: if signedIn();
+
+      match /messages/{messageId} {
+        allow read: if signedIn();
+        allow create: if signedIn()
+                      && request.resource.data.senderID == request.auth.uid;
+        allow update: if signedIn();
+        allow delete: if false;
+      }
+    }
+
+    // Push / in-app notifications: anyone signed-in can drop one in a user's
+    // inbox; only the recipient can read or mark as read.
+    match /notifications/{notificationId} {
+      allow read: if signedIn()
+                  && resource.data.ownerId == request.auth.uid;
+      allow create: if signedIn();
+      allow update: if signedIn()
+                    && resource.data.ownerId == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // Reference / lookup data: read-only from the client. Manage via the
+    // Firebase console (or a future admin-claimed UI).
+    match /Allergies/{id}    { allow read: if signedIn(); allow write: if false; }
+    match /Vaccinations/{id} { allow read: if signedIn(); allow write: if false; }
+    match /Pet_Types/{id}    { allow read: if signedIn(); allow write: if false; }
+
+    // Default deny.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,16 +1,23 @@
 import React from 'react';
+import useSEO from '../hooks/useSEO';
 import LegalPageShell from '../components/LegalPageShell';
 
-const P = ({ children }) => <p className="text-slate-700 dark:text-slate-300">{children}</p>;
+const P = ({ children }) => <p className="text-slate-700">{children}</p>;
 const H2 = ({ children }) => (
-    <h2 className="text-xl font-bold text-slate-900 dark:text-white scroll-mt-28 border-b border-emerald-100/80 dark:border-slate-700 pb-2">
+    <h2 className="text-xl font-bold text-slate-900 scroll-mt-28 border-b border-emerald-100/80 pb-2">
         {children}
     </h2>
 );
-const Ul = ({ children }) => <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">{children}</ul>;
+const Ul = ({ children }) => <ul className="list-disc pl-6 space-y-2 text-slate-700">{children}</ul>;
 const Li = ({ children }) => <li>{children}</li>;
 
 const PrivacyPage = () => {
+    useSEO({
+        title: 'Privacy Policy | Snout Scout',
+        description: 'Read how Snout Scout collects, uses, and protects your personal data across our mobile apps and website.',
+        path: '/privacy',
+    });
+
     return (
         <LegalPageShell title="Privacy Policy" lastUpdated="11 April 2026">
             <section className="space-y-4">
@@ -31,8 +38,8 @@ const PrivacyPage = () => {
                 <H2>1. Who we are</H2>
                 <P>
                     The Services are operated on behalf of Snout Scout                    . For data-protection enquiries, contact us at{' '}
-                    <a href="mailto:privacy@snoutscout.com" className="font-medium text-[var(--color-primary)] underline dark:text-emerald-400">
-                        privacy@snoutscout.com
+                    <a href="mailto:carl@gardenrouteenterprises.com" className="font-medium text-[var(--color-primary)] underline">
+                        carl@gardenrouteenterprises.com
                     </a>
                     .
                 </P>
@@ -53,19 +60,19 @@ const PrivacyPage = () => {
                 <H2>3. Data we collect</H2>
                 <P>Depending on how you use the Services, we may process the following categories of data:</P>
 
-                <p className="font-semibold text-slate-900 dark:text-white">3.1 Account and contact data</p>
+                <p className="font-semibold text-slate-900">3.1 Account and contact data</p>
                 <Ul>
                     <Li>Email address, name or display name, and authentication identifiers (e.g. when you sign in with email or a third-party provider such as Google or Apple).</Li>
                     <Li>Profile details you choose to add (e.g. photo).</Li>
                 </Ul>
 
-                <p className="font-semibold text-slate-900 dark:text-white">3.2 Pet and care data</p>
+                <p className="font-semibold text-slate-900">3.2 Pet and care data</p>
                 <Ul>
                     <Li>Pet names, photos, breed, age, medical notes, allergies, vaccination records, and similar information you enter to build a pet profile.</Li>
                     <Li>Identifiers such as QR codes or “snout” / biometric-style images you choose to upload for identification features, where offered.</Li>
                 </Ul>
 
-                <p className="font-semibold text-slate-900 dark:text-white">3.3 Location data</p>
+                <p className="font-semibold text-slate-900">3.3 Location data</p>
                 <Ul>
                     <Li>
                         <strong>Precise location</strong> (e.g. GPS) when you enable location permissions—for example to show nearby
@@ -78,13 +85,13 @@ const PrivacyPage = () => {
                     </Li>
                 </Ul>
 
-                <p className="font-semibold text-slate-900 dark:text-white">3.4 Communications and community data</p>
+                <p className="font-semibold text-slate-900">3.4 Communications and community data</p>
                 <Ul>
                     <Li>Messages you send through in-app messaging, reviews, or support channels.</Li>
                     <Li>Metadata such as timestamps and conversation participants.</Li>
                 </Ul>
 
-                <p className="font-semibold text-slate-900 dark:text-white">3.5 Transactions</p>
+                <p className="font-semibold text-slate-900">3.5 Transactions</p>
                 <Ul>
                     <Li>
                         If you purchase a subscription or paid plan: payment status, plan tier (e.g. Basic, Pro, Business), and
@@ -93,12 +100,12 @@ const PrivacyPage = () => {
                     </Li>
                 </Ul>
 
-                <p className="font-semibold text-slate-900 dark:text-white">3.6 Device and technical data</p>
+                <p className="font-semibold text-slate-900">3.6 Device and technical data</p>
                 <Ul>
                     <Li>Device type, operating system, app version, language, IP address, and crash or diagnostics data to keep the Services secure and reliable.</Li>
                 </Ul>
 
-                <p className="font-semibold text-slate-900 dark:text-white">3.7 Usage analytics</p>
+                <p className="font-semibold text-slate-900">3.7 Usage analytics</p>
                 <Ul>
                     <Li>
                         In-app events (e.g. screens viewed, features used) where we or our analytics partners process data in
@@ -234,8 +241,8 @@ const PrivacyPage = () => {
                 </Ul>
                 <P>
                     To exercise these rights, contact{' '}
-                    <a href="mailto:privacy@snoutscout.com" className="font-medium text-[var(--color-primary)] underline dark:text-emerald-400">
-                        privacy@snoutscout.com
+                    <a href="mailto:carl@gardenrouteenterprises.com" className="font-medium text-[var(--color-primary)] underline">
+                        carl@gardenrouteenterprises.com
                     </a>
                     . We may need to verify your identity.
                 </P>
@@ -279,8 +286,8 @@ const PrivacyPage = () => {
                 <H2>15. Contact</H2>
                 <P>
                     Questions about this Privacy Policy:{' '}
-                    <a href="mailto:privacy@snoutscout.com" className="font-medium text-[var(--color-primary)] underline dark:text-emerald-400">
-                        privacy@snoutscout.com
+                    <a href="mailto:carl@gardenrouteenterprises.com" className="font-medium text-[var(--color-primary)] underline">
+                        carl@gardenrouteenterprises.com
                     </a>
                 </P>
             </section>

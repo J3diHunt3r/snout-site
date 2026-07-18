@@ -3,43 +3,49 @@ import { motion } from 'framer-motion';
 import Button from './ui/Button';
 import { Check } from 'lucide-react';
 
-const PricingCard = ({ title, price, features, isPopular, isBusiness, delay }) => (
+const PricingCard = ({ title, price, features, isPopular, isBusiness, delay, checkoutLink }) => (
     <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay, duration: 0.5 }}
         viewport={{ once: true }}
-        className={`relative p-8 rounded-2xl ${isPopular ? 'bg-[var(--color-primary)] text-white shadow-xl scale-105 z-10' : 'bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-[var(--color-text)]'}`}
+        className="relative flex flex-col h-full px-8 py-10 md:py-0 text-[var(--color-text)]"
     >
-        {isPopular && (
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--color-accent)] text-black px-4 py-1 rounded-full text-sm font-bold shadow-sm">
-                Most Popular
-            </div>
-        )}
-
-        <h3 className={`text-xl font-bold mb-2 ${isPopular ? 'text-white' : 'text-[var(--color-text)] dark:text-white'}`}>{title}</h3>
+        <div className="flex items-center gap-2 mb-2">
+            <h3 className="text-xl font-bold">{title}</h3>
+            {isPopular && (
+                <span className="bg-[var(--color-accent)]/20 text-[var(--color-secondary)] px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                    Most Popular
+                </span>
+            )}
+        </div>
         <div className="flex items-baseline gap-1 mb-6">
             <span className="text-4xl font-bold">{price}</span>
-            {price !== 'Free' && <span className={`text-sm ${isPopular ? 'text-green-100' : 'text-gray-500'}`}>/month</span>}
+            {price !== 'Free' && <span className="text-sm text-gray-500">/month</span>}
         </div>
 
-        <ul className="space-y-4 mb-8">
+        <ul className="flex-1 space-y-4 mb-8">
             {features.map((feature, idx) => (
                 <li key={idx} className="flex items-start gap-3 text-sm">
-                    <Check size={18} className={isPopular ? 'text-[var(--color-accent)]' : 'text-[var(--color-primary)]'} />
-                    <span className={isPopular ? 'text-green-50' : 'text-gray-600'}>{feature}</span>
+                    <Check size={18} className="text-[var(--color-primary)]" />
+                    <span className="text-gray-600">{feature}</span>
                 </li>
             ))}
         </ul>
 
         <Button
-            variant={isPopular ? 'secondary' : 'primary'}
+            variant={isPopular ? 'primary' : isBusiness ? 'secondary' : 'outline'}
             className="w-full"
+            disabled={!checkoutLink && Boolean(isBusiness || isPopular)}
+            onClick={checkoutLink ? () => { window.location.href = checkoutLink; } : undefined}
         >
-            {isBusiness ? 'Contact Sales' : 'Get Started'}
+            {checkoutLink ? 'Get Started' : isBusiness ? 'Contact Sales' : 'Get Started'}
         </Button>
     </motion.div>
 );
+
+const PRO_CHECKOUT_LINK = import.meta.env.VITE_STRIPE_PRO_LINK;
+const BUSINESS_CHECKOUT_LINK = import.meta.env.VITE_STRIPE_BUSINESS_LINK;
 
 const Pricing = () => {
     return (
@@ -53,7 +59,7 @@ const Pricing = () => {
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+                <div className="grid md:grid-cols-3 gap-8 md:gap-0 md:divide-x md:divide-gray-200 max-w-6xl mx-auto items-stretch">
                     <PricingCard
                         title="Basic"
                         price="Free"
@@ -71,25 +77,30 @@ const Pricing = () => {
                         isPopular
                         features={[
                             "Unlimited AI Consultations",
+                            "Up to 5 pets in your Kennel",
                             "Advanced Health Analytics",
                             "Priority Lost Pet Broadcasting",
                             "Store Medical Records",
                             "Ad-free Experience"
                         ]}
                         delay={0.1}
+                        checkoutLink={PRO_CHECKOUT_LINK}
                     />
                     <PricingCard
                         title="Business"
                         price="£19.99"
                         isBusiness
                         features={[
+                            "Everything Pro",
+                            "Dashboard for Revenue Tracking",
                             "Business Profile & Verification",
-                            "Invoicing System",
+                            "Automated Invoicing System",
                             "Direct Messaging with Customers",
                             "Showcase Services on Map",
                             "Staff Management"
                         ]}
                         delay={0.2}
+                        checkoutLink={BUSINESS_CHECKOUT_LINK}
                     />
                 </div>
             </div>

@@ -36,20 +36,20 @@ const testimonials = [
 ];
 
 const TestimonialCard = ({ name, role, content, rating }) => (
-    <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 min-w-[300px] mx-4">
+    <div className="border-l-2 border-[var(--color-primary)]/20 pl-6 py-2 min-w-[300px] max-w-[340px] mx-4">
         <div className="flex gap-1 mb-3">
             {[...Array(5)].map((_, i) => (
-                <Star key={i} size={16} className={i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300 dark:text-gray-600"} />
+                <Star key={i} size={16} className={i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"} />
             ))}
         </div>
-        <p className="text-gray-600 dark:text-gray-300 mb-4 h-24 overflow-hidden relative">"{content}"</p>
+        <p className="text-gray-600 mb-4 h-24 overflow-hidden relative">"{content}"</p>
         <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] font-bold">
                 {name[0]}
             </div>
             <div>
-                <div className="font-bold text-sm dark:text-white">{name}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">{role}</div>
+                <div className="font-bold text-sm">{name}</div>
+                <div className="text-xs text-gray-500">{role}</div>
             </div>
         </div>
     </div>

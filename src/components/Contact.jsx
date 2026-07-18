@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from './ui/Button';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import FloatingField from './ui/FloatingField';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import { sendContactMessage } from '../services/contact';
 
 const Contact = () => {
     const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+    const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic
-        console.log("Form submitted", formState);
+        setStatus('sending');
+        setErrorMessage('');
+        try {
+            await sendContactMessage(formState);
+            setStatus('sent');
+            setFormState({ name: '', email: '', message: '' });
+        } catch (err) {
+            setStatus('error');
+            setErrorMessage(err.message || 'Something went wrong. Please try again.');
+        }
     };
 
     return (
@@ -22,7 +34,7 @@ const Contact = () => {
                         viewport={{ once: true }}
                     >
                         <span className="text-[var(--color-primary)] font-bold uppercase tracking-wide text-sm">Get in Touch</span>
-                        <h2 className="text-4xl font-bold mt-2 mb-6 dark:text-white">Let's Chat</h2>
+                        <h2 className="text-4xl font-bold mt-2 mb-6">Let's Chat</h2>
                         <p className="text-[var(--color-text-light)] text-lg mb-8">
                             Have questions about our business plans? Want to partner with us?
                             Or just want to show us a picture of your dog? We're all ears.
@@ -35,7 +47,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h4 className="font-bold mb-1">Email Us</h4>
-                                    <p className="text-gray-500">hello@snout.app</p>
+                                    <p className="text-gray-500">carl@gardenrouteenterprises.com</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
@@ -63,41 +75,42 @@ const Contact = () => {
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700"
                     >
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div>
-                                <label className="block text-sm font-bold mb-2 dark:text-white">Name</label>
-                                <input
-                                    type="text"
-                                    className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all dark:text-white"
-                                    placeholder="John Doe"
-                                    value={formState.name}
-                                    onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-bold mb-2 dark:text-white">Email</label>
-                                <input
-                                    type="email"
-                                    className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all dark:text-white"
-                                    placeholder="john@example.com"
-                                    value={formState.email}
-                                    onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-bold mb-2 dark:text-white">Message</label>
-                                <textarea
-                                    className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-gray-600 focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all h-32 resize-none dark:text-white"
-                                    placeholder="How can we help?"
-                                    value={formState.message}
-                                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                                ></textarea>
-                            </div>
-                            <Button variant="primary" className="w-full">
-                                <Send size={18} /> Send Message
+                        <form onSubmit={handleSubmit} className="space-y-8">
+                            <FloatingField
+                                id="contact-name"
+                                label="Name"
+                                type="text"
+                                value={formState.name}
+                                onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                            />
+                            <FloatingField
+                                id="contact-email"
+                                label="Email"
+                                type="email"
+                                value={formState.email}
+                                onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                            />
+                            <FloatingField
+                                id="contact-message"
+                                label="Message"
+                                as="textarea"
+                                className="h-28 resize-none"
+                                value={formState.message}
+                                onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                            />
+                            <Button variant="dark" className="w-full" disabled={status === 'sending'}>
+                                {status === 'sending' ? 'Sending…' : 'Send Message'} <span aria-hidden="true">→</span>
                             </Button>
+
+                            {status === 'sent' && (
+                                <p className="text-sm font-medium text-[var(--color-primary)]">
+                                    Thanks — we'll be in touch soon!
+                                </p>
+                            )}
+                            {status === 'error' && (
+                                <p className="text-sm font-medium text-red-600">{errorMessage}</p>
+                            )}
                         </form>
                     </motion.div>
                 </div>

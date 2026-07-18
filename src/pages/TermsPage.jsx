@@ -1,17 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useSEO from '../hooks/useSEO';
 import LegalPageShell from '../components/LegalPageShell';
 
-const P = ({ children }) => <p className="text-slate-700 dark:text-slate-300">{children}</p>;
+const P = ({ children }) => <p className="text-slate-700">{children}</p>;
 const H2 = ({ children }) => (
-    <h2 className="text-xl font-bold text-slate-900 dark:text-white scroll-mt-28 border-b border-emerald-100/80 dark:border-slate-700 pb-2">
+    <h2 className="text-xl font-bold text-slate-900 scroll-mt-28 border-b border-emerald-100/80 pb-2">
         {children}
     </h2>
 );
-const Ul = ({ children }) => <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">{children}</ul>;
+const Ul = ({ children }) => <ul className="list-disc pl-6 space-y-2 text-slate-700">{children}</ul>;
 const Li = ({ children }) => <li>{children}</li>;
 
 const TermsPage = () => {
+    useSEO({
+        title: 'Terms of Use | Snout Scout',
+        description: 'The terms and conditions governing your use of the Snout Scout mobile apps and website.',
+        path: '/terms',
+    });
+
     return (
         <LegalPageShell title="Terms of Use" lastUpdated="11 April 2026">
             <section className="space-y-4">
@@ -39,8 +46,8 @@ const TermsPage = () => {
                 <P>
                     You are responsible for maintaining the confidentiality of your login credentials and for all activity under
                     your account. You must provide accurate information and keep it up to date. Notify us promptly at{' '}
-                    <a href="mailto:support@snoutscout.com" className="font-medium text-[var(--color-primary)] underline dark:text-emerald-400">
-                        support@snoutscout.com
+                    <a href="mailto:carl@gardenrouteenterprises.com" className="font-medium text-[var(--color-primary)] underline">
+                        carl@gardenrouteenterprises.com
                     </a>{' '}
                     if you suspect unauthorised access.
                 </P>
@@ -157,7 +164,7 @@ const TermsPage = () => {
                 <H2>13. Privacy</H2>
                 <P>
                     Our{' '}
-                    <Link to="/privacy" className="font-medium text-[var(--color-primary)] underline dark:text-emerald-400">
+                    <Link to="/privacy" className="font-medium text-[var(--color-primary)] underline">
                         Privacy Policy
                     </Link>{' '}
                     explains how we collect and use personal data. It forms part of your agreement with us.
@@ -195,8 +202,8 @@ const TermsPage = () => {
                 <H2>17. Contact</H2>
                 <P>
                     Questions about these Terms:{' '}
-                    <a href="mailto:legal@snoutscout.com" className="font-medium text-[var(--color-primary)] underline dark:text-emerald-400">
-                        legal@snoutscout.com
+                    <a href="mailto:carl@gardenrouteenterprises.com" className="font-medium text-[var(--color-primary)] underline">
+                        carl@gardenrouteenterprises.com
                     </a>
                 </P>
             </section>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Plus, Minus } from 'lucide-react';
 
@@ -23,13 +23,13 @@ const faqs = [
 
 const AccordionItem = ({ question, answer, isOpen, onClick }) => {
     return (
-        <div className="border-b border-gray-100 dark:border-gray-700 last:border-none">
+        <div className="border-b border-gray-100 last:border-none">
             <button
                 onClick={onClick}
-                className="w-full py-6 flex items-center justify-between text-left hover:text-[var(--color-primary)] transition-colors dark:text-white"
+                className="w-full py-6 flex items-center justify-between text-left hover:text-[var(--color-primary)] transition-colors"
             >
                 <span className="text-lg font-bold">{question}</span>
-                <div className={`p-2 rounded-full transition-colors ${isOpen ? 'bg-[var(--color-primary)] text-white' : 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400'}`}>
+                <div className={`p-2 rounded-full transition-colors ${isOpen ? 'bg-[var(--color-primary)] text-white' : 'bg-gray-100 text-gray-500'}`}>
                     {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                 </div>
             </button>
@@ -42,7 +42,7 @@ const AccordionItem = ({ question, answer, isOpen, onClick }) => {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                     >
-                        <p className="pb-6 text-gray-500 dark:text-gray-400 leading-relaxed pr-8">
+                        <p className="pb-6 text-gray-500 leading-relaxed pr-8">
                             {answer}
                         </p>
                     </motion.div>
@@ -52,17 +52,36 @@ const AccordionItem = ({ question, answer, isOpen, onClick }) => {
     );
 };
 
+function useFAQStructuredData() {
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+            })),
+        });
+        document.head.appendChild(script);
+        return () => document.head.removeChild(script);
+    }, []);
+}
+
 const FAQ = () => {
     const [openIndex, setOpenIndex] = useState(0);
+    useFAQStructuredData();
 
     return (
         <section className="py-24 bg-[var(--color-bg)]">
             <div className="container max-w-3xl">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold dark:text-white">Frequently Asked Questions</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
                 </div>
 
-                <div className="bg-white dark:bg-slate-800 rounded-2xl p-2 md:p-8">
+                <div>
                     {faqs.map((faq, index) => (
                         <AccordionItem
                             key={index}

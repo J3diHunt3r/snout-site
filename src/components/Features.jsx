@@ -15,7 +15,7 @@ const SCREENSHOTS = {
 function FeatureCardFace({ icon: Icon, title, description, screenshot }) {
     return (
         <>
-            <div className="relative w-full aspect-[9/16] max-h-[220px] sm:max-h-[240px] bg-slate-100 dark:bg-slate-900">
+            <div className="relative w-full aspect-[9/16] max-h-[220px] sm:max-h-[240px] bg-slate-100 rounded-xl overflow-hidden">
                 <img
                     src={screenshot}
                     alt={`${title} — in-app screenshot`}
@@ -23,12 +23,12 @@ function FeatureCardFace({ icon: Icon, title, description, screenshot }) {
                     loading="lazy"
                 />
             </div>
-            <div className="p-6 sm:p-7 flex flex-col flex-1">
+            <div className="pt-6 flex flex-col flex-1">
                 <div className="flex items-start gap-3 mb-3">
                     <div className="w-10 h-10 shrink-0 bg-[var(--color-primary-light)]/10 text-[var(--color-primary)] rounded-xl flex items-center justify-center">
                         <Icon size={22} />
                     </div>
-                    <h3 className="text-lg font-bold dark:text-white leading-tight pt-0.5">{title}</h3>
+                    <h3 className="text-lg font-bold leading-tight pt-0.5">{title}</h3>
                 </div>
                 <p className="text-[var(--color-text-light)] leading-relaxed text-[15px] sm:text-base">{description}</p>
             </div>
@@ -49,7 +49,7 @@ function FeatureCard({ icon, title, description, screenshot, index, reduceMotion
             }}
             className="h-full"
         >
-            <div className="group h-full rounded-2xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-slate-800 overflow-hidden flex flex-col shadow-[var(--shadow-lg)] transition-all duration-300 hover:shadow-xl hover:border-[var(--color-primary)]/25 hover:-translate-y-0.5">
+            <div className="h-full flex flex-col">
                 <FeatureCardFace icon={icon} title={title} description={description} screenshot={screenshot} />
             </div>
         </motion.article>
@@ -115,7 +115,7 @@ const Features = () => {
                     className="text-center max-w-2xl mx-auto mb-14 lg:mb-16"
                 >
                     <span className="text-[var(--color-primary)] font-bold tracking-wide uppercase text-sm">Features</span>
-                    <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4 dark:text-white">Everything Your Pet Needs</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4">Everything Your Pet Needs</h2>
                     <p className="text-[var(--color-text-light)] text-lg">
                         A modern, approachable app: intuitive screens, AI-powered tools, and location-smart safety—built for real life with pets.
                     </p>

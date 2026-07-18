@@ -1,5 +1,8 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getFunctions } from 'firebase/functions';
+import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 
 function getFirebaseConfig() {
     return {
@@ -28,6 +31,45 @@ export function getFirebaseDb() {
         return getFirestore(app, String(databaseId).trim());
     }
     return getFirestore(app);
+}
+
+/**
+ * Returns Firebase Functions instance, or null if config is incomplete.
+ */
+export function getFirebaseFunctions() {
+    const cfg = getFirebaseConfig();
+    if (!cfg.apiKey || !cfg.projectId) {
+        return null;
+    }
+    const existing = getApps()[0];
+    const app = existing ?? initializeApp(cfg);
+    return getFunctions(app);
+}
+
+/**
+ * Returns Firebase Auth instance, or null if config is incomplete.
+ */
+export function getFirebaseAuth() {
+    const cfg = getFirebaseConfig();
+    if (!cfg.apiKey || !cfg.projectId) {
+        return null;
+    }
+    const existing = getApps()[0];
+    const app = existing ?? initializeApp(cfg);
+    return getAuth(app);
+}
+
+/**
+ * Returns Firebase Storage instance, or null if config is incomplete.
+ */
+export function getFirebaseStorage() {
+    const cfg = getFirebaseConfig();
+    if (!cfg.apiKey || !cfg.projectId) {
+        return null;
+    }
+    const existing = getApps()[0];
+    const app = existing ?? initializeApp(cfg);
+    return getStorage(app);
 }
 
 export function isFirebaseConfigured() {

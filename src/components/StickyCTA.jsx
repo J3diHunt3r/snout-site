@@ -30,9 +30,9 @@ const StickyCTA = () => {
                     transition={{ duration: 0.3 }}
                     className="fixed bottom-0 left-0 right-0 p-4 z-50 pointer-events-none flex justify-center"
                 >
-                    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-3 rounded-full shadow-2xl flex items-center gap-4 pointer-events-auto max-w-xl mx-auto">
+                    <div className="bg-white/80 backdrop-blur-lg border border-gray-200 p-3 rounded-full shadow-2xl flex items-center gap-4 pointer-events-auto max-w-xl mx-auto">
                         <div className="hidden sm:block pl-2">
-                            <span className="font-bold text-sm dark:text-white">Get Snout today</span>
+                            <span className="font-bold text-sm">Get Snout today</span>
                         </div>
                         <div className="flex gap-2">
                             <Button variant="primary" className="py-2 px-4 text-sm">

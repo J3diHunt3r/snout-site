@@ -14,10 +14,10 @@ const steps = [
 
 const LostFound = () => {
     return (
-        <section className="py-24 md:py-28 relative overflow-hidden bg-[var(--color-bg-soft)] dark:bg-slate-900 border-y border-emerald-200/30 dark:border-slate-800">
+        <section className="py-24 md:py-28 relative overflow-hidden bg-[var(--color-bg-soft)] border-y border-emerald-200/30">
             {/* Soft background accents */}
             <div className="pointer-events-none absolute -top-24 right-0 h-96 w-96 rounded-full bg-[var(--color-primary-light)]/10 blur-3xl" />
-            <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-amber-200/20 dark:bg-emerald-900/20 blur-3xl" />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-amber-200/20 blur-3xl" />
 
             <div className="container relative z-10">
                 <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
@@ -28,7 +28,7 @@ const LostFound = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.45 }}
-                            className="inline-flex items-center gap-2 rounded-full border border-red-200/80 bg-white/90 px-4 py-1.5 text-sm font-semibold text-red-700 shadow-sm dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-300"
+                            className="inline-flex items-center gap-2 rounded-full border border-red-200/80 bg-white/90 px-4 py-1.5 text-sm font-semibold text-red-700 shadow-sm"
                         >
                             <Bell className="h-4 w-4 shrink-0" aria-hidden />
                             Emergency broadcast
@@ -39,7 +39,7 @@ const LostFound = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.05 }}
-                            className="mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 dark:text-white md:text-5xl"
+                            className="mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 md:text-5xl"
                         >
                             Lost your best friend?
                         </motion.h2>
@@ -48,7 +48,7 @@ const LostFound = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.45, delay: 0.1 }}
-                            className="mt-3 text-xl font-semibold text-[var(--color-primary)] dark:text-emerald-400 md:text-2xl"
+                            className="mt-3 text-xl font-semibold text-[var(--color-primary)] md:text-2xl"
                         >
                             Panic less. Act fast.
                         </motion.p>
@@ -71,12 +71,12 @@ const LostFound = () => {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: 0.15 + i * 0.06 }}
-                                    className="flex gap-4 rounded-2xl border border-emerald-100/80 bg-white/80 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800/80"
+                                    className="flex gap-4 rounded-2xl border border-emerald-100/80 bg-white/80 p-4 shadow-sm"
                                 >
-                                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--color-primary)]/10 text-[var(--color-primary)] dark:bg-emerald-500/15 dark:text-emerald-400">
+                                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
                                         <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />
                                     </span>
-                                    <span className="pt-0.5 font-medium leading-snug text-slate-800 dark:text-slate-100">{text}</span>
+                                    <span className="pt-0.5 font-medium leading-snug text-slate-800">{text}</span>
                                 </motion.li>
                             ))}
                         </ul>
@@ -124,12 +124,12 @@ const LostFound = () => {
                         <motion.div
                             animate={{ y: [0, -14, 0] }}
                             transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut', delay: 0.5 }}
-                            className="absolute top-20 sm:top-24 -right-1 sm:right-0 lg:-right-4 bg-white dark:bg-slate-800 p-3.5 rounded-xl shadow-xl z-20 max-w-[158px] border border-emerald-100 dark:border-slate-700"
+                            className="absolute top-20 sm:top-24 -right-1 sm:right-0 lg:-right-4 bg-white p-3.5 rounded-xl shadow-xl z-20 max-w-[158px] border border-emerald-100"
                         >
-                            <p className="text-[11px] font-semibold text-[var(--color-primary)] dark:text-emerald-400 uppercase tracking-wide">
+                            <p className="text-[11px] font-semibold text-[var(--color-primary)] uppercase tracking-wide">
                                 Live radius
                             </p>
-                            <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-snug">
+                            <p className="text-xs text-slate-600 mt-1 leading-snug">
                                 Get your pet back in no time
                             </p>
                         </motion.div>

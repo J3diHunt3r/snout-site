@@ -26,16 +26,16 @@ const highlights = [
 ];
 
 const previewPlaces = [
-    { icon: Stethoscope, label: 'City Paws Vet', meta: 'Open now · 0.8 mi', accent: 'bg-rose-500/15 text-rose-700 dark:text-rose-300' },
-    { icon: Trees, label: 'Riverside Park', meta: 'Usually quiet · 1.2 mi', accent: 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-300' },
-    { icon: Coffee, label: 'The Wag Café', meta: 'Pet menu · 0.4 mi', accent: 'bg-amber-500/15 text-amber-800 dark:text-amber-200' },
+    { icon: Stethoscope, label: 'City Paws Vet', meta: 'Open now · 0.8 mi', accent: 'bg-rose-500/15 text-rose-700' },
+    { icon: Trees, label: 'Riverside Park', meta: 'Usually quiet · 1.2 mi', accent: 'bg-emerald-500/15 text-emerald-800' },
+    { icon: Coffee, label: 'The Wag Café', meta: 'Pet menu · 0.4 mi', accent: 'bg-amber-500/15 text-amber-800' },
 ];
 
 const InteractiveMap = () => {
     return (
-        <section className="relative py-24 md:py-28 overflow-hidden bg-[var(--color-bg)] border-t border-emerald-100/60 dark:border-slate-800">
+        <section className="relative py-24 md:py-28 overflow-hidden bg-[var(--color-bg)] border-t border-emerald-100/60">
             <div className="pointer-events-none absolute right-0 top-1/2 h-[420px] w-[420px] -translate-y-1/2 rounded-full bg-[var(--color-primary-light)]/8 blur-3xl" />
-            <div className="pointer-events-none absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-amber-200/15 dark:bg-emerald-900/20 blur-3xl" />
+            <div className="pointer-events-none absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-amber-200/15 blur-3xl" />
 
             <div className="container relative z-10">
                 <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
@@ -45,7 +45,7 @@ const InteractiveMap = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.45 }}
-                            className="inline-flex items-center gap-2 rounded-full border border-emerald-200/80 bg-white/90 px-4 py-1.5 text-sm font-semibold text-[var(--color-primary)] shadow-sm dark:border-emerald-800/60 dark:bg-emerald-950/40 dark:text-emerald-400"
+                            className="inline-flex items-center gap-2 rounded-full border border-emerald-200/80 bg-white/90 px-4 py-1.5 text-sm font-semibold text-[var(--color-primary)] shadow-sm"
                         >
                             <Navigation className="h-4 w-4" aria-hidden />
                             Discovery map
@@ -56,7 +56,7 @@ const InteractiveMap = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.05 }}
-                            className="mt-5 font-display text-4xl font-bold tracking-tight text-slate-900 dark:text-white md:text-5xl"
+                            className="mt-5 font-display text-4xl font-bold tracking-tight text-slate-900 md:text-5xl"
                         >
                             Explore a pet-friendly world
                         </motion.h2>
@@ -79,12 +79,12 @@ const InteractiveMap = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: 0.08 + i * 0.05 }}
-                                    className="rounded-2xl border border-emerald-100/90 bg-white/90 p-5 shadow-[var(--shadow-sm)] dark:border-slate-700 dark:bg-slate-800/80"
+                                    className="rounded-2xl border border-emerald-100/90 bg-white/90 p-5 shadow-[var(--shadow-sm)]"
                                 >
-                                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-primary)]/10 text-[var(--color-primary)] dark:bg-emerald-500/15 dark:text-emerald-400">
+                                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
                                         <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />
                                     </span>
-                                    <h3 className="mt-3 font-semibold text-slate-900 dark:text-white">{title}</h3>
+                                    <h3 className="mt-3 font-semibold text-slate-900">{title}</h3>
                                     <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-text-light)]">{description}</p>
                                 </motion.div>
                             ))}
@@ -99,17 +99,17 @@ const InteractiveMap = () => {
                         transition={{ duration: 0.55 }}
                         className="relative mx-auto w-full max-w-lg lg:max-w-none lg:justify-self-end"
                     >
-                        <div className="relative rounded-[2rem] border border-emerald-200/50 bg-gradient-to-br from-emerald-50/90 via-white to-amber-50/50 p-6 shadow-[var(--shadow-lg)] dark:border-slate-700 dark:from-slate-800 dark:via-slate-900 dark:to-emerald-950/40 md:p-8">
-                            <div className="absolute inset-0 rounded-[2rem] bg-[radial-gradient(ellipse_at_30%_20%,rgba(34,197,94,0.12),transparent_50%)] dark:bg-[radial-gradient(ellipse_at_30%_20%,rgba(34,197,94,0.08),transparent_50%)]" />
+                        <div className="relative rounded-[2rem] border border-emerald-200/50 bg-gradient-to-br from-emerald-50/90 via-white to-amber-50/50 p-6 shadow-[var(--shadow-lg)] md:p-8">
+                            <div className="absolute inset-0 rounded-[2rem] bg-[radial-gradient(ellipse_at_30%_20%,rgba(34,197,94,0.12),transparent_50%)]),transparent_50%)]" />
 
-                            <div className="relative flex items-center justify-between gap-3 border-b border-emerald-100/80 pb-4 dark:border-slate-700">
-                                <div className="flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-100">
+                            <div className="relative flex items-center justify-between gap-3 border-b border-emerald-100/80 pb-4">
+                                <div className="flex items-center gap-2 text-sm font-semibold text-slate-800">
                                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--color-primary)] text-white shadow-sm">
                                         <MapPin className="h-4 w-4" aria-hidden />
                                     </span>
                                     Near you
                                 </div>
-                                <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-emerald-800 shadow-sm dark:bg-slate-800 dark:text-emerald-300">
+                                <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-emerald-800 shadow-sm">
                                     Live
                                 </span>
                             </div>
@@ -124,7 +124,7 @@ const InteractiveMap = () => {
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.35, delay: 0.1 + i * 0.08 }}
-                                        className="flex items-center gap-4 rounded-2xl border border-white/80 bg-white/90 p-4 shadow-sm backdrop-blur-sm dark:border-slate-600/80 dark:bg-slate-800/90"
+                                        className="flex items-center gap-4 rounded-2xl border border-white/80 bg-white/90 p-4 shadow-sm backdrop-blur-sm"
                                     >
                                         <span
                                             className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${place.accent}`}
@@ -132,10 +132,10 @@ const InteractiveMap = () => {
                                             <PlaceIcon className="h-6 w-6" strokeWidth={2} aria-hidden />
                                         </span>
                                         <div className="min-w-0 flex-1">
-                                            <p className="font-semibold text-slate-900 dark:text-white">{place.label}</p>
+                                            <p className="font-semibold text-slate-900">{place.label}</p>
                                             <p className="text-sm text-[var(--color-text-light)]">{place.meta}</p>
                                         </div>
-                                        <Navigation className="h-4 w-4 shrink-0 text-emerald-600 opacity-70 dark:text-emerald-400" aria-hidden />
+                                        <Navigation className="h-4 w-4 shrink-0 text-emerald-600 opacity-70" aria-hidden />
                                     </motion.li>
                                     );
                                 })}

@@ -1,3 +1,4 @@
+import useSEO from '../hooks/useSEO';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
@@ -13,6 +14,12 @@ import ParallaxBackground from '../components/ParallaxBackground';
 import SiteFooter from '../components/SiteFooter';
 
 const HomePage = () => {
+    useSEO({
+        title: 'Snout Scout — The Super App for Your Pet | QR Recovery, AI Vet Chat & More',
+        description: 'Snout Scout is the all-in-one pet care app: QR tag recovery, GPS lost-pet broadcasts, AI-assisted vet triage, and a business directory for groomers and vets. Download for iOS and Android.',
+        path: '/',
+    });
+
     return (
         <div className="home-page overflow-x-hidden bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-300 relative">
             <ParallaxBackground />
